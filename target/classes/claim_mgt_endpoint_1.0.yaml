@@ -1,0 +1,447 @@
+swagger: '2.0'
+info:
+  version: 1.0
+  title: WSO2 Identity Server Claim Management Service Endpoint
+  description: >
+    This document specifies  **Claim Management Service Endpoint**
+    for WSO2 **Identity Server** .
+  contact:
+    name: WSO2
+    url: 'http://wso2.com/identity-and-access-management'
+    email: architecture@wso2.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+schemes:
+  - https
+  - http
+host: localhost
+basePath: /api/identity/claim/mgt/v1.0
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /dialects:
+    post:
+      summary: Add New Claim Dialect.
+      operationId: "addClaimDialect"
+      parameters:
+        - name: claimDialect
+          in: body
+          description: External Claim Dialect
+          required: true
+          schema:
+            $ref: '#/definitions/ClaimDialect'
+      responses:
+        201: 
+          description: Claim Dialect Created Successfully
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Confict Occurred
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+    
+    get:
+      summary: Get Available Claim Dialects.
+      operationId: "getClaimDialects"
+      responses:
+        200:
+          description: Available claim Dialects retrieved successfully.
+          schema:
+            type: array
+            items:
+              type: string
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /dialects/{id}:          
+    delete:
+      summary: "Delete Claim Dialect"
+      operationId: "removeClaimDialect"
+      parameters:
+        - name: id
+          description: URI of the claim Dialect
+          in: "path"
+          type: "string"
+          required: true
+      responses:
+        204:
+          description: "Claim Dialect deleted Successfully."
+        400:
+          description: "Invalid Request"
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: "Not found"
+          schema:
+            $ref: '#/definitions/Error'
+            
+    put:
+      summary: Update exisiting claim dialect.
+      operationId: "renameClaimDialect"
+      parameters:
+        - name: id
+          description: URI of the Existing claim Dialect
+          in: "path"
+          type: "string"
+          required: true
+        - name: claimDialect
+          description: New claim dialect
+          in : body
+          schema:
+            $ref: '#/definitions/ClaimDialect'
+      responses:
+        200:
+          description: Claim Dialect Updated
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Confict Occurred
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+          
+  /dialects/{dialect-id}/claims:
+    get:
+      summary: Get external claims of the given Dialect
+      operationId: "getExternalClaims"
+      parameters:
+        - name: dialect-id
+          in : path
+          description: URI of the external Claim Dilect.
+          required: true
+          type: string
+
+      responses:
+        200: 
+          description: External Claims retrieved Successfully.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ExternalClaim'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+  
+    post:
+      summary: Add new external claim
+      operationId: "addExternalClaim"
+      parameters:
+        - name: dialect-id
+          in: path
+          required: true
+          description: URI of the external Claim Dilect.
+          type: string
+        - name: externalClaim
+          in : body
+          description: URI of the external Claim to be added.
+          required: true
+          schema:
+            $ref: '#/definitions/ExternalClaim'
+      responses:
+        201: 
+          description: New External Claim Added Successfully.
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Confict Occurred
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+  
+  /dialects/{dialect-id}/claims/{claim-id}:
+    put:
+      summary: update an external claim.
+      operationId: "updateExternalClaim"
+      parameters:
+        - name: dialect-id
+          in: path
+          required: true
+          description: URI of the external Claim Dilect.
+          type: string
+        - name: claim-id
+          in: path
+          description: URI of External Claim that needs to be updated
+          required: true
+          type: string
+        - name: externalClaim
+          in : body
+          description: External claim object to be updated
+          schema:
+            $ref: '#/definitions/ExternalClaim'
+      responses:
+        200:
+          description: External claim Updated Successfully
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Confict Occurred
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+  
+    delete:
+      summary: "Delete external Claim"
+      operationId: "removeExternalClaim"
+      parameters:
+      - name: dialect-id
+        in: path
+        required: true
+        description: URI of the external Claim Dilect.
+        type: string
+      - name: claim-id
+        in: path
+        description: External Claim that needs to be deleted
+        required: true
+        type: string
+
+      responses:
+        204:
+          description: "External Claim deleted Successfully."
+        400:
+          description: "Invalid Request"
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: "Not found"
+          schema:
+            $ref: '#/definitions/Error'
+    
+  /attributes:
+    post:
+      summary: Add new local claim
+      operationId: "addLocalClaim"
+      parameters:
+        - name: localClaim
+          in : body
+          description: Local Claim to be added.
+          required: true
+          schema:
+            $ref: '#/definitions/LocalClaim'
+      responses:
+        201: 
+          description: Local Claim Added Successfully
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Confict Occurred
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+           
+    get:
+      summary: Get Available Local Claims.
+      operationId: "getLocalClaims"
+      responses:
+        200:
+          description: Local Claims Retrieved Successfully
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/LocalClaim'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+            
+    
+  
+  /attributes/{local-claim-id}:
+    put:
+      summary: Update a Local Claim.
+      operationId: "updateLocalClaim"
+      parameters:
+        - name: local-claim-id
+          in: "path"
+          description: URI of the local claim that needs to be updated.
+          required: true
+          type: string
+        - name: localClaim
+          in : body
+          description: Local Claim with new properties.
+          schema:
+            $ref: '#/definitions/LocalClaim'
+      responses:
+        200:
+          description: Updated
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Confict Occurred
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'  
+            
+    delete:
+      summary: "Delete Local Claim"
+      operationId: "removeLocalClaim"
+      parameters:
+      - name: local-claim-id
+        in: "path"
+        description: Local claim URI that needs to be deleted.
+        required: true
+        type: string
+
+      responses:
+        204:
+          description: Local Claim deleted Successfully.
+        400:
+          description: "Invalid user supplied"
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: "User not found"
+          schema:
+            $ref: '#/definitions/Error'
+
+            
+  
+definitions:
+#-----------------------------------------------------
+# Claim Dialect 
+#-----------------------------------------------------
+  ClaimDialect:
+    title: ClaimDialect
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        description: The URI of the Claim Dialect. 
+        type: string
+      externalClaims:
+        description: Array of external claims
+        type: array
+        items:
+          $ref: '#/definitions/ExternalClaim'
+#-----------------------------------------------------
+# External Claim resource
+#-----------------------------------------------------
+  ExternalClaim:
+    title: ExternalClaim
+    type: object
+    properties:
+      externalClaim:
+        type: string
+      mappedLocalClaim:
+        type: string
+#-----------------------------------------------------
+# Local Claim resource
+#-----------------------------------------------------
+  LocalClaim:
+    title: LlocalClaim
+    type: object
+    properties:
+      attributeMappings:
+        type: array
+        items:
+          $ref: '#/definitions/AttributeMapping'
+      claimProperties:
+        type: array
+        items:
+          $ref: '#/definitions/ClaimProperty'
+      localClaimURI:
+        type: string
+#-----------------------------------------------------
+# Attribute Mappings schema
+#-----------------------------------------------------
+  AttributeMapping:
+    title: AttributeMapping
+    type: object
+    properties:
+      attributeName:
+        type: string
+      userStoreDomain:
+        type: string
+#-----------------------------------------------------
+# Claim Property schema
+#-----------------------------------------------------
+  ClaimProperty:
+    title: ClaimProperty
+    type: object
+    properties:
+      propertyName:
+        type: string
+      propertyValue:
+        type: string        
+#-----------------------------------------------------
+# The Error Response object
+#-----------------------------------------------------
+  Error:
+    type: object
+    properties:
+      error:
+        type: string
+      errorDescription:
+        type: string
+#-----------------------------------------------------
+# END-OF-FILE
+#-----------------------------------------------------

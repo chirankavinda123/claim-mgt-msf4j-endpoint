@@ -1,0 +1,52 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1519720742319
+Build-Jdk: 1.8.0_144
+Built-By: chiran
+Bundle-ClassPath: .,swagger-annotations-1.5.16.jar
+Bundle-Description: WSO2 is an open source application development softw
+ are company focused on providing service-oriented        architecture s
+ olutions for professional developers.
+Bundle-DocURL: http://www.wso2.org/
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: org.wso2.carbon.identity.claim.mgt.endpoint
+Bundle-SymbolicName: org.wso2.carbon.identity.claim.mgt.endpoint
+Bundle-Vendor: WSO2
+Bundle-Version: 5.10.124.SNAPSHOT
+Carbon-Component: osgi.service; objectClass="org.wso2.msf4j.Microservice
+ "
+Created-By: Apache Maven Bundle Plugin
+Embed-Dependency: swagger-annotations
+Embed-Transitive: true
+Embedded-Artifacts: swagger-annotations-1.5.16.jar;g="io.swagger";a="swa
+ gger-annotations";v="1.5.16"
+Export-Package: org.wso2.carbon.identity.claim.mgt.endpoint;version="5.1
+ 0.124.SNAPSHOT";uses:="javax.servlet,javax.ws.rs,javax.ws.rs.core,javax
+ .xml.bind.annotation,org.wso2.carbon.identity.claim.metadata.mgt.except
+ ion,org.wso2.carbon.identity.claim.mgt.endpoint.dto,org.wso2.msf4j",org
+ .wso2.carbon.identity.claim.mgt.endpoint.dto;version="5.10.124.SNAPSHOT
+ ",org.wso2.carbon.identity.claim.mgt.endpoint.factories;version="5.10.1
+ 24.SNAPSHOT";uses:="org.wso2.carbon.identity.claim.mgt.endpoint",org.ws
+ o2.carbon.identity.claim.mgt.endpoint.impl;version="5.10.124.SNAPSHOT";
+ uses:="javax.ws.rs.core,org.wso2.carbon.identity.claim.metadata.mgt.exc
+ eption,org.wso2.carbon.identity.claim.mgt.endpoint,org.wso2.carbon.iden
+ tity.claim.mgt.endpoint.dto,org.wso2.msf4j",org.wso2.carbon.identity.cl
+ aim.mgt.endpoint.util;version="5.10.124.SNAPSHOT";uses:="org.wso2.carbo
+ n.identity.claim.metadata.mgt.model,org.wso2.carbon.identity.claim.mgt.
+ endpoint.dto,org.wso2.carbon.user.api,org.wso2.carbon.user.core.claim"
+Import-Package: org.apache.commons.logging;version="[1.2,2)",com.google.
+ gson.annotations;version="[2.3,3)",org.wso2.msf4j;version="[2.5,3)",jav
+ ax.ws.rs;version="[2.0,3)",javax.ws.rs.core;version="[2.0,3)",javax.xml
+ .bind.annotation,javax.servlet;version="[2.6,3)",org.wso2.carbon.identi
+ ty.claim.metadata.mgt;version="[5.10,6)",org.wso2.carbon.identity.claim
+ .metadata.mgt.exception;version="[5.10,6)",org.wso2.carbon.identity.cla
+ im.metadata.mgt.model;version="[5.10,6)",org.wso2.carbon.identity.claim
+ .metadata.mgt.util;version="[5.10,6)",org.wso2.carbon.context;version="
+ [4.4,5)",org.wso2.carbon.user.api;version="[1.0,2)",org.wso2.carbon.use
+ r.core.claim;version="[4.4,5)",org.osgi.framework;version="[1.4.0,2.0.0
+ )",org.wso2.carbon.base;version="[1.0,2)",org.osgi.service.component;ve
+ rsion="[1.2.0,2.0.0)"
+SCM-Revision: 0431b08f0c9fbe2ccf5d8c59f35f2eab020c9aaa
+Service-Component: OSGI-INF/org.wso2.carbon.identity.claim.mgt.endpoint.
+ AttributesApi.xml
+Tool: Bnd-2.1.0.20130426-122213

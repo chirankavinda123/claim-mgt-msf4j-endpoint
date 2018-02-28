@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><components xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0">
+    <scr:component immediate="true" name="org.wso2.carbon.identity.claim.mgt.endpoint.AttributesApi">
+        <implementation class="org.wso2.carbon.identity.claim.mgt.endpoint.AttributesApi"/>
+        <service servicefactory="false">
+            <provide interface="org.wso2.msf4j.Microservice"/>
+        </service>
+    </scr:component>
+</components>
